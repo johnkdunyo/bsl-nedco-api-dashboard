@@ -10,7 +10,7 @@ const Transactions = () => {
         <Sidebar />
         <div className='w-full'>
             <Header />
-            <div className='py-4 px-4'>
+            <div className='py-4 px-6'>
 
                 <div className='border-b border-gray-300 mb-8'>
                     <div className='flex justify-between  pt-2'>

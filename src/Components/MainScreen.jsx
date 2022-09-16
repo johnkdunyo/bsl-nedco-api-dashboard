@@ -4,7 +4,7 @@ const MainScreen = () => {
   return (
     <React.Fragment>
         <section className="">
-            <div className="px-4 py-12 mx-auto w-full md:py-16 sm:px-6 lg:px-8">
+            <div className="px-6 py-12 mx-auto w-full md:py-16 sm:px-6 lg:px-8">
                 
 
                 <div className="mt-8 sm:mt-12">
