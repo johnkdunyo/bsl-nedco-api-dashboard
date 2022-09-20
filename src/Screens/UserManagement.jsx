@@ -7,7 +7,7 @@ const UserManagement = () => {
     <React.Fragment>
         <div className='flex'>
         <Sidebar />
-        <div className='w-full'>
+        <div className='w-full ml-64'>
             <Header />
             
 
@@ -15,7 +15,7 @@ const UserManagement = () => {
                  <div className='flex items-start pb-10'>
                     <button className='flex items-center px-3 py-1.5 rounded-sm font-medium bg-blue-900 text-white hover:bg-opacity-90'>
                         Add User
-                        <svg class="inline-block w-6 h-6 text-white ml-2" stroke="currentColor"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <svg class="inline-block w-6 h-6 text-white ml-2" stroke="currentColor"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </button>
                  </div>
 

@@ -10,7 +10,7 @@ const Header = () => {
     
   return (
     <React.Fragment>
-        <header className="sticky top-0 bg-white border-b-2 border-gray-200 z-30  h-14 ">
+        <header className="sticky  top-0 bg-white border-b-2 border-gray-200 z-30  h-14 ">
             <div className='px-12 py-3 flex justify-end space-x-3 '>
                 <button className='text-lg border border-transparent hover:border-gray-100 px-3 rounded-md hover:bg-gray-100'>Notifications</button>
                 <hr className="w-px h-6 bg-gray-200" />

@@ -7,6 +7,9 @@ import TransactionDetails from './Screens/TransactionDetails';
 import Transactions from './Screens/Transactions';
 import UserManagement from './Screens/UserManagement';
 
+import store from './redux/store';
+import { getTxn } from './redux/txnSlice';
+store.dispatch(getTxn())
 
 
 function App() {

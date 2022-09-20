@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Set config defaults when creating the instance
 const instance = axios.create({
-    baseURL: 'http://20.31.249.135'
+    baseURL: 'http://20.31.249.135/api/v1.0'
   });
 
 //   check if there is a valid token in the localstorage

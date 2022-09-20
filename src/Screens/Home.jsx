@@ -8,7 +8,7 @@ const Home = () => {
     <React.Fragment>
         <div className='flex'>
         <Sidebar />
-        <div className='w-full'>
+        <div className='w-full ml-64'>
             <Header />
             <MainScreen />
         </div>

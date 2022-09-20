@@ -2,7 +2,9 @@ import React from 'react'
 import { formatDateToDateAndTimeString } from '../utils/util-functions'
 
 const TransactionDetailsLeft = ({txn}) => {
-    console.log(txn)
+    
+    
+
   return (
     <React.Fragment>
         <div className='px-10 flex flex-col mb-10'>
@@ -12,10 +14,10 @@ const TransactionDetailsLeft = ({txn}) => {
                     Amount
                 </h1>
                 <p className="text-2xl font-medium ">
-                    {`GHS ${txn.amount} `}
+                    {`GHS ${parseFloat(txn.amount/100).toFixed(2)} `}
                 </p>
                 </div>
-                <button className='bg-green-500 px-2 py-1 rounded-full text-white text-sm'>{txn.status}</button>
+                <button className= {` ${txn.status === 'success' ? 'bg-green-600' : (txn.status ==='failed' ? 'bg-red-500' : 'bg-yellow-400' )} px-2 py-1 rounded-full text-white text-sm cursor-text`}>{txn.status}</button>
             </div>
             <hr />
             <div className='flex justify-between my-4'>

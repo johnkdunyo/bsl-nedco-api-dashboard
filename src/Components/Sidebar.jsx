@@ -3,7 +3,7 @@ import React from 'react'
 const Sidebar = () => {
   return (
     <React.Fragment>
-        <section className="w-64 fixed z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 transform h-screen overflow-y-scroll lg:overflow-y-auto    shrink-0 bg-gray-800 p-4 transition-all duration-200 ease-in-out" aria-label="Sidebar">
+        <aside className="w-64 fixed z-40 left-0 top-0  transform h-screen    bg-gray-800 p-4 transition-all duration-200 ease-in-out" aria-label="Sidebar">
            
             <div className='flex flex-col justify-between h-[100%]'>
                 <div className='mt-10 '>
@@ -29,7 +29,7 @@ const Sidebar = () => {
 
                         <li>
                             <a href="/usermanagement" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <svg  aria-hidden="true" className="flex-shrink-0 text-gray-400 inline-block w-6 h-6 " stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                            <svg  aria-hidden="true" className="flex-shrink-0 text-gray-400 inline-block w-6 h-6 " stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                             <span className="ml-3">User Management</span>
                             </a>
                         </li>
@@ -55,7 +55,7 @@ const Sidebar = () => {
 
 
 
-            </section>
+            </aside>
     </React.Fragment>
   )
 }

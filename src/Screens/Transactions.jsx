@@ -4,15 +4,20 @@ import Sidebar from '../Components/Sidebar'
 import TransactionsPageTable from '../Components/TransactionsPageTable'
 
 const Transactions = () => {
+    // const data = useSelector(state=>state.txn.txns)
+
+
+    
+
   return (
     <React.Fragment>
         <div className='flex'>
         <Sidebar />
-        <div className='w-full'>
+        <div className='w-full ml-64'>
             <Header />
-            <div className='py-4 px-6'>
+            <div className='py-0 px-6'>
 
-                <div className='border-b border-gray-300 mb-8'>
+                <div className='border-b border-gray-300 mb-2  z-20 '>
                     <div className='flex justify-between  pt-2'>
                         <div className="hidden relative md:block">
                             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

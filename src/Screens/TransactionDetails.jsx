@@ -1,24 +1,67 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Header from '../Components/Header'
 import Sidebar from '../Components/Sidebar'
-import { Link, useParams } from 'react-router-dom'
-
-import data from '../data.json'
+import { Link, useLocation } from 'react-router-dom'
 import TransactionDetailsLeft from '../Components/TransactionDetailsLeft'
 import TransactionDetailsRight from '../Components/TransactionDetailsRight'
+import API from '../networks/api';
 
 const TransactionDetails = () => {
+    const state = useLocation()
+    const [txn, setTxn] = useState(state.state)
+    const [isCheckingTxnStatus, setIsCheckingTxnStatus] = useState(false);
+    const [isUpdatingTxnStatus, setIsUpdatingTxnStatus] = useState(false)
+    const [isFiringStatusUpdate, setIsFiringStatusUpdate] = useState(false)
 
-    const params = useParams()
-   
-    const txn = data.filter(txnn=>txnn.stan === params.stan)[0]
-    console.log(txn)
+    // this function fetches the current transaction
+    const fetchLatestTxn = async () => {
+        setIsCheckingTxnStatus(true)
+        console.log('firing check status')
+        try {
+            const latestTxn = await API.get(`/transactions/${txn.stan}`)
+            // console.log(latestTxn.data.data)
+            setTxn(latestTxn.data.data)
+        } catch (error) {
+            console.log(error.response) 
+        }
+        setIsCheckingTxnStatus(false)
+    }
 
+
+    const updateTxnStatus = async (updatedStatus) => {
+        setIsUpdatingTxnStatus(true)
+        console.log('firirn update txn status')
+        try {
+            const response = await API.put(`/transactions/${txn.stan}`, {status: updatedStatus})
+            // console.log(response)
+            setTxn(response.data.data)
+        } catch (error) {
+            console.log(error.response)
+        }
+        setIsUpdatingTxnStatus(false)
+    }
+
+    const fireStatusUpdateEvent = async() => {
+        setIsFiringStatusUpdate(true)
+        try {
+            const response = await API.post(`/transactions/${txn.stan}/fireStatusUpdatedEvent`)
+            console.log(response)
+
+        } catch (error) {
+            console.log(error.response)
+        }
+        setIsFiringStatusUpdate(false)
+
+    }
+
+
+
+    
   return (
     <React.Fragment>
         <div className='flex'>
         <Sidebar />
-        <div className='w-full'>
+        <div className='w-full ml-64'>
             <Header />
             <section className='py-8 px-8  '>
                 <div className='bg-white my-5 px-5 '>
@@ -31,9 +74,19 @@ const TransactionDetails = () => {
                 </div>
 
                 <div className='grid grid-cols-2 gap-5 pt-10 pb-4 divide-x-2'>
-                    <TransactionDetailsLeft txn={txn} />
+                    <TransactionDetailsLeft 
+                        txn={txn} 
+                    />
                     
-                    <TransactionDetailsRight txn={txn} />
+                    <TransactionDetailsRight 
+                        txn={txn} 
+                        fetchLatestTxn={fetchLatestTxn} 
+                        ischeckingTxnStatus={isCheckingTxnStatus}
+                        updateTxnStatus={updateTxnStatus}
+                        isUpdatingTxnStatus={isUpdatingTxnStatus}
+                        fireStatusUpdateEvent={fireStatusUpdateEvent}
+                        isFiringStatusUpdate={isFiringStatusUpdate}
+                    />
 
                 </div>
 
