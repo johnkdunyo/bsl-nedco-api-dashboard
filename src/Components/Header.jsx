@@ -33,7 +33,10 @@ const Header = () => {
                             {/* <div className="font-medium text-gray-800">Dashboard Name.</div> */}
                             {/* <div className="text-xs text-gray-500 italic ">Administrator</div> */}
                             <div className='flex justify-end'>
-                                <button className='px-2 py-1 hover:bg-gray-100 rounded-lg' onClick={()=>setOpenUser(prev=>!prev)}>X</button>
+                            
+                                <button type="button" className="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-2 py-1 leading-5 text-sm rounded border-transparent text-gray-600 hover:text-gray-400 focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:text-gray-600" onClick={()=>setOpenUser(prev=>!prev)}>
+                                    <svg className="hi-solid hi-x inline-block w-4 h-4 -mx-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
+                                </button>
                             </div>
                         </div>
                         <ul>
