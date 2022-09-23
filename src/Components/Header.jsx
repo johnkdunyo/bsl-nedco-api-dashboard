@@ -28,7 +28,7 @@ const Header = () => {
                         </div>
                     </button>
 
-                    <div className={  ` ${!openUser && `hidden` } origin-top-right z-10 absolute top-full right-0 w-52 min-w-44 bg-white border border-gray-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 `}  >
+                    <div className={  ` ${!openUser && `hidden` } origin-top-right z-25 absolute top-full right-0 w-52 min-w-44 bg-white border border-gray-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 `}  >
                         <div className="pt-0.5 pb-2 px-5 mb-5 border-b border-gray-200">
                             {/* <div className="font-medium text-gray-800">Dashboard Name.</div> */}
                             {/* <div className="text-xs text-gray-500 italic ">Administrator</div> */}

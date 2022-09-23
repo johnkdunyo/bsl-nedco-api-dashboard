@@ -1,11 +1,11 @@
 import React from 'react'
 import { formatDateToDateAndTimeString } from '../utils/util-functions';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {  useNavigate } from 'react-router-dom';
-// import { useDispatch } from "react-redux";
-// import { getTxn } from '../redux/txnSlice';
+import { getTxnPerPage } from '../redux/txnSlice';
+
 
 
 
@@ -13,7 +13,9 @@ import {  useNavigate } from 'react-router-dom';
 
 
 
-const TransactionsPageTable = () => {
+const TransactionsPageTable = ({searchResponse}) => {
+    const dispatch = useDispatch()
+    
     const data = useSelector(state=>state.txn.txns)
     const navigate = useNavigate();
 
@@ -25,7 +27,9 @@ const TransactionsPageTable = () => {
         )
     }
 
-
+    if(data){
+        console.log(data)
+    }
     const navigateTxn = (txn) => {
         console.log(txn)
         navigate(`/transactions/${txn.stan}`, {state: txn})
@@ -41,7 +45,7 @@ const TransactionsPageTable = () => {
 
   return (
     <React.Fragment>
-        <div className=" shadow-none rounded-sm max-h-[580px] overflow-y-auto">
+        <div className="rounded-sm h-fit overflow-y-auto overflow-visible px-6">
                     <table className="w-full text-sm text-left text-gray-500 ">
                         <thead className="sticky top-0  text-sm text-gray-700 uppercase bg-white border-b border-gray-300 ">
                             <tr>
@@ -70,7 +74,7 @@ const TransactionsPageTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data?.map(txn => (
+                            {!searchResponse && data?.data.map(txn => (
                                 // onClick={()=>window.location.href=`/transactions/${txn.stan}`}
                                 <tr key={txn.stan} className="bg-white border-b  hover:bg-gray-50 cursor-pointer " onClick={()=>navigateTxn(txn)} >
                                 <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap ">
@@ -88,8 +92,9 @@ const TransactionsPageTable = () => {
                                 <td className="py-4 px-6">
                                     {txn.accountNumber}
                                 </td>
-                                <td className="py-4 px-6">
-                                    {txn.status}
+                                <td className="py-4 px-6 text-center ">
+                                    
+                                    <p className={` ${txn.status === 'success' ? 'bg-green-600' : (txn.status ==='failed' ? 'bg-red-500' : 'bg-yellow-400' )} px-1 py-0 rounded-md text-white text-sm cursor-text`}>{txn.status}</p>
                                 </td>
                                 <td className="py-4 p-6">
                                     {formatDateToDateAndTimeString(txn.createdAt)}
@@ -99,23 +104,65 @@ const TransactionsPageTable = () => {
                                 
                             
                             ))}
+
+
+                            {searchResponse && (
+                                <tr key={searchResponse.data.stan} className="bg-white border-b  hover:bg-gray-50 cursor-pointer " onClick={()=>navigateTxn(searchResponse.data)} >
+                                <th scope="row" className="py-4 px-6 font-medium whitespace-nowrap ">
+                                    {searchResponse.data.reference}
+                                </th>
+                                <td className="py-4 px-6">
+                                    {searchResponse.data.stan}
+                                </td>
+                                <td className="py-4 px-6">
+                                    GHC {parseFloat(searchResponse.data.amount/100).toFixed(2)}
+                                </td>
+                                <td className="py-4 px-6">
+                                    {searchResponse.data.rSwitch}
+                                </td>
+                                <td className="py-4 px-6">
+                                    {searchResponse.data.accountNumber}
+                                </td>
+                                <td className="py-4 px-6 text-center ">
+                                    
+                                    <p className={` ${searchResponse.data.status === 'success' ? 'bg-green-600' : (searchResponse.data.status ==='failed' ? 'bg-red-500' : 'bg-yellow-400' )} px-1 py-0 rounded-md text-white text-sm cursor-text`}>{searchResponse.data.status}</p>
+                                </td>
+                                <td className="py-4 p-6">
+                                    {formatDateToDateAndTimeString(searchResponse.data.createdAt)}
+                                </td> 
+                                         
+                                </tr>
+                            )}
                             
                             
                            
                         </tbody>
                     </table>
                 </div>
-                <div className='flex justify-between items-center my-4 bg-white p-2'>
+
+                {!searchResponse && (
+                    <div className='flex justify-between items-center my-4 bg-white p-2 px-6'>
                     <div className=''>
-                        <p>Showing 1 to .....</p>
+                        <p className='text-sm italic'>Showing {data?.meta.per_page } per page</p>
                     </div>
 
                     <div className='flex justify-between space-x-4'>
-                        <button className='px-5 py-1 rounded-md border border-gray-600 hover:bg-gray-200'>Prev</button>
-                        <button className='px-5 py-1 rounded-md border border-gray-600 hover:bg-gray-200'>Next</button>
+                        {data?.links.prev && (
+                            <button className='px-5 py-1 flex justify-between items-center rounded-md border border-gray-600 hover:bg-gray-200' onClick={()=>dispatch(getTxnPerPage(data?.meta.prev_cursor))}>
+                                <svg className="hi-solid hi-arrow-left inline-block w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd"/></svg>
+                                <h1 className='text-sm ml-2'>Prev</h1>
+                            </button>
+                        )}
+                        {data?.links.next && (
+                            <button className='px-5 py-1 flex justify-between items-center rounded-md border border-gray-600 hover:bg-gray-200' onClick={()=>dispatch(getTxnPerPage(data?.meta.next_cursor))}>
+                                <h1 className='text-sm'>Next</h1>
+                                <svg className="hi-solid hi-arrow-right inline-block w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
+                            </button>
+                        )}
                     </div>
 
                 </div>
+                )}
     </React.Fragment>
   )
 }
