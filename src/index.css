@@ -8,5 +8,9 @@
 }
 
 body {
-  @apply bg-gray-100
+  @apply bg-gray-100;
+}
+
+.dashboard-inputs {
+  @apply w-full block border border-gray-700 rounded-lg px-3 py-1.5 focus:ring focus:ring-opacity-50;
 }
