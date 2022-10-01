@@ -5,17 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { getTxnPerPage } from "../redux/txnSlice";
+import API from "../networks/api";
 
 // console.log(data)
 
-const TransactionsPageTable = ({ searchResponse }) => {
+const TransactionsPageTable = ({ searchResponse, searchURL }) => {
   const dispatch = useDispatch();
 
-  console.log(searchResponse);
   const data = useSelector((state) => state.txn.txns);
   const navigate = useNavigate();
 
-  if (searchResponse?.data?.length === 0 && !data) {
+  if (searchResponse?.data?.length === 0) {
     return (
       <div className="flex justify-center items-center">
         <h1 className="font-bold text-2xl">No transactions found</h1>
@@ -37,6 +37,30 @@ const TransactionsPageTable = ({ searchResponse }) => {
   const navigateTxn = (txn) => {
     // console.log(txn)
     navigate(`/transactions/${txn.stan}`, { state: txn });
+  };
+
+  const getNextPage = async () => {
+    const cursor = data.meta.next_cursor;
+    const url = new URL(
+      searchURL === ""
+        ? API.defaults.baseURL.concat("/transactions")
+        : searchURL
+    );
+    url.searchParams.set("cursor", cursor);
+    console.log("q url-->", url.href);
+    await dispatch(getTxnPerPage(url.href)).unwrap();
+  };
+
+  const getPrevPage = async () => {
+    const cursor = data.meta.prev_cursor;
+    const url = new URL(
+      searchURL === ""
+        ? API.defaults.baseURL.concat("/transactions")
+        : searchURL
+    );
+    url.searchParams.set("cursor", cursor);
+    console.log("q url-->", url.href);
+    await dispatch(getTxnPerPage(url.href)).unwrap();
   };
 
   return (
@@ -122,7 +146,7 @@ const TransactionsPageTable = ({ searchResponse }) => {
           {data?.links.prev && (
             <button
               className="px-5 py-1 flex justify-between items-center rounded-md border border-gray-600 hover:bg-gray-200"
-              onClick={() => dispatch(getTxnPerPage(data?.meta.prev_cursor))}
+              onClick={() => getPrevPage()}
             >
               <svg
                 className="hi-solid hi-arrow-left inline-block w-4 h-4"
@@ -142,7 +166,7 @@ const TransactionsPageTable = ({ searchResponse }) => {
           {data?.links.next && (
             <button
               className="px-5 py-1 flex justify-between items-center rounded-md border border-gray-600 hover:bg-gray-200"
-              onClick={() => dispatch(getTxnPerPage(data?.meta.next_cursor))}
+              onClick={() => getNextPage()}
             >
               <h1 className="text-sm">Next</h1>
               <svg
