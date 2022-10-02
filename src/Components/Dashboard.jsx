@@ -1,59 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-
-const chatData = [
-  {
-    name: "Monday",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Tuesday",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Wednesday",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Thursday",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Friday",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Saturday",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Sunday",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import ReactApexChart from "react-apexcharts";
 
 const CardAmount = ({ desciption, value }) => {
   return (
@@ -84,6 +31,30 @@ const CardCount = ({ desciption, value }) => {
 const Dashboard = () => {
   const data = useSelector((state) => state.txn.dashboard);
   console.log(data);
+
+  const pieChartData = {
+    series: [44, 55, 13],
+    options: {
+      chart: {
+        width: 380,
+        type: "pie",
+      },
+      labels: ["Team A", "Team B", "Team C"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  };
 
   return (
     <React.Fragment>
@@ -126,37 +97,21 @@ const Dashboard = () => {
           </div>
 
           {/* chart go heere */}
-          <div className="mt-5 grid grid-cols-3 border border-red-800">
+          <div className="my-5 grid grid-cols-3 gap-5">
             {/* left */}
-            <div>
-              <LineChart
-                width={600}
-                height={300}
-                data={chatData}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="pv"
-                  stroke="#8884d8"
-                  activeDot={{ r: 8 }}
-                />
-                <Line type="monotone" dataKey="amt" stroke="#82ca9d" />
-              </LineChart>
-            </div>
+            <div className="col-span-2 px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50"></div>
             {/* right pie chart */}
-            <div></div>
+            <div className=" px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50">
+              <ReactApexChart
+                options={pieChartData.options}
+                series={pieChartData.series}
+                type="pie"
+              />
+            </div>
           </div>
+
+          {/* bar chart full w */}
+          <div className=" px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50"></div>
         </div>
 
         {/* charts */}
