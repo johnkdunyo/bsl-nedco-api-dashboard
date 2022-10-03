@@ -87,15 +87,14 @@ const Dashboard = () => {
   const txnCount = label.map(
     (day) =>
       parseInt(
-        data?.weeklyTransactionData[day.toLowerCase()]?.transactionValue
+        data?.weeklyTransactionData[day.toLowerCase()]?.transactionCount
       ) || 0
   );
 
-  const txnValue = label.map(
-    (day) =>
-      parseFloat(
-        data?.weeklyTransactionData[day.toLowerCase()]?.transactionValue
-      ).toFixed(2) || 0
+  const txnValue = label.map((day) =>
+    parseFloat(
+      data?.weeklyTransactionData[day.toLowerCase()]?.transactionValue || 0
+    ).toFixed(2)
   );
   console.log(txnCount, txnValue);
 
