@@ -24,7 +24,7 @@ export const getTxn = createAsyncThunk("getTxn", async () => {
     // console.log(response.data.data)
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
   }
 });
 
