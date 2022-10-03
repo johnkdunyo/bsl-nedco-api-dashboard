@@ -28,9 +28,32 @@ const CardCount = ({ desciption, value }) => {
   );
 };
 
+const Card3 = ({ accountNumber, txn }) => {
+  return (
+    <div className="flex flex-col justify-between items-center px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50">
+      <div className="flex flex-col  mb-2">
+        <p className="text-xl font-extrabold  text-blue-600 ">
+          {accountNumber || 0}{" "}
+        </p>
+        <p className="font-medium text-gray-500">Highest Transaction Account</p>
+      </div>
+      <div className="flex flex-col ">
+        <p className="text-xl font-extrabold  text-blue-600 ">{txn || 0}</p>
+        <p className="font-medium text-gray-500">Number of transactions</p>
+      </div>
+      {/* <dt className="order-last text-md font-medium text-gray-500">
+        highestTransactingAccount{accountNumber || "No desciption"}
+      </dt>
+      <dd className="text-2xl font-extrabold  text-blue-600 md:text-4xl">
+        {txn || 0}
+      </dd> */}
+    </div>
+  );
+};
+
 const Dashboard = () => {
   const data = useSelector((state) => state.txn.dashboard);
-  // console.log(data);
+  console.log(data);
 
   const getPieChartData = () => {
     // this function formats the data from the api for the pieChart
@@ -216,6 +239,10 @@ const Dashboard = () => {
               <CardCount
                 desciption="Failed Transactions"
                 value={data?.failedTransactions}
+              />
+              <Card3
+                accountNumber={data?.highestTransactingAccount.accountNumber}
+                txn={data?.highestTransactingAccount.transactions}
               />
             </dl>
           </div>
