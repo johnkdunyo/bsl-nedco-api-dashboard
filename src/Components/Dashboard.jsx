@@ -30,7 +30,7 @@ const CardCount = ({ desciption, value }) => {
 
 const Dashboard = () => {
   const data = useSelector((state) => state.txn.dashboard);
-  console.log(data);
+  // console.log(data);
 
   const getPieChartData = () => {
     // this function formats the data from the api for the pieChart
@@ -84,10 +84,11 @@ const Dashboard = () => {
     "Sunday",
   ];
 
-  const txnCount = label.map((day) =>
-    parseInt(
-      data?.weeklyTransactionData[day.toLowerCase()]?.transactionValue || 0
-    )
+  const txnCount = label.map(
+    (day) =>
+      parseInt(
+        data?.weeklyTransactionData[day.toLowerCase()]?.transactionValue
+      ) || 0
   );
 
   const txnValue = label.map(
