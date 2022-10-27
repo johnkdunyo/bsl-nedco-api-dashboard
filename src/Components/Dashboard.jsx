@@ -241,8 +241,8 @@ const Dashboard = () => {
                 value={data?.failedTransactions}
               />
               <Card3
-                accountNumber={data?.highestTransactingAccount.accountNumber}
-                txn={data?.highestTransactingAccount.transactions}
+                accountNumber={data?.highestTransactingAccount?.accountNumber}
+                txn={data?.highestTransactingAccount?.transactions}
               />
             </dl>
           </div>

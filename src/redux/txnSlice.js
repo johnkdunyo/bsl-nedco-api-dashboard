@@ -8,7 +8,7 @@ const initialState = {
 
 export const getDashboard = createAsyncThunk("getDashboard", async () => {
   try {
-    const response = await API.get("/dashboard");
+    const response = await API.get("/v1.0/dashboard");
     console.log(response.data.data);
     return response.data.data;
   } catch (error) {
@@ -18,7 +18,7 @@ export const getDashboard = createAsyncThunk("getDashboard", async () => {
 
 export const getTxn = createAsyncThunk("getTxn", async () => {
   try {
-    const response = await API.get("/transactions");
+    const response = await API.get("/v1.0/transactions");
     // console.log("firing get Txn");
     // console.log(response.data);
     // console.log(response.data.data)
@@ -56,7 +56,7 @@ export const getTxnPerPage = createAsyncThunk("getTxnPerPage", async (url) => {
 
 export const getTxnByStan = createAsyncThunk("getTxnByStan", async (stan) => {
   try {
-    const response = await API.get(`/transactions/${stan}`);
+    const response = await API.get(`/v1.0/transactions/${stan}`);
     return response.data;
   } catch (error) {
     console.log(error.response);
@@ -109,7 +109,7 @@ export const downloadTxnBySearch = createAsyncThunk(
     );
     try {
       const response = await API.get(
-        `/transactions?status=${query.selectedStatus}&q=${query.searchText}&from=${query.dateFrom}&to=${query.dateTo}&export=true`
+        `/v1.0/transactions?status=${query.selectedStatus}&q=${query.searchText}&from=${query.dateFrom}&to=${query.dateTo}&export=true`
       );
       return response.data;
     } catch (error) {
