@@ -29,7 +29,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact index path="/signin" element={<SignIn />} />
-          <Route exact path="/reset-password" element={<ResetPassword />} />
+          <Route exact path="/resetpassword" element={<ResetPassword />} />
           <Route
             exact
             path="/resetpasswordrequest"
