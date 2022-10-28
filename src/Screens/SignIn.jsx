@@ -37,6 +37,7 @@ const SignIn = () => {
         }
       })
       .catch((error) => {
+        console.log("error", error);
         console.log("error->", error.response);
         if (error.response.status === 401) {
           setError(error.response.data.message);
@@ -46,7 +47,8 @@ const SignIn = () => {
           setError(error.response.data.message);
         } else {
           setError(
-            error.response.data.message || "Something happend, please try again"
+            error.response?.data?.message ||
+              "Something happend, please try again"
           );
         }
       })
