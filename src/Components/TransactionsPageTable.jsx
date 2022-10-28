@@ -43,7 +43,7 @@ const TransactionsPageTable = ({ searchResponse, searchURL }) => {
     const cursor = data.meta.next_cursor;
     const url = new URL(
       searchURL === ""
-        ? API.defaults.baseURL.concat("/transactions")
+        ? API.defaults.baseURL.concat("/v1.0/transactions")
         : searchURL
     );
     url.searchParams.set("cursor", cursor);
@@ -55,7 +55,7 @@ const TransactionsPageTable = ({ searchResponse, searchURL }) => {
     const cursor = data.meta.prev_cursor;
     const url = new URL(
       searchURL === ""
-        ? API.defaults.baseURL.concat("/transactions")
+        ? API.defaults.baseURL.concat("/v1.0/transactions")
         : searchURL
     );
     url.searchParams.set("cursor", cursor);
