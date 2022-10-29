@@ -1,20 +1,25 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { setCurrentUser } from "../redux/userSlice";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import API from "../networks/api";
+import { useLocation } from "react-router-dom";
 
 const ResetPassword = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const [viewPassword, setViewPassword] = useState(false);
 
-  const email = "email";
-  const token = "token";
+  const email = params.get("email");
+  const token = params.get("token");
+  if (!email && !token) {
+    window.location.href = "/";
+  }
+
   const onViewPasswordHandler = () => {
     setViewPassword((prev) => !prev);
   };
@@ -22,6 +27,10 @@ const ResetPassword = () => {
   const onFormSubmitHandler = async (e) => {
     e.preventDefault();
     setError(" ");
+    setSuccess("");
+    if (password !== confirmPassword) {
+      return setError("Confirm Password does not match");
+    }
     setIsLoggingIn(true);
     let formData = new FormData();
     formData.append("email", email);
@@ -30,9 +39,12 @@ const ResetPassword = () => {
 
     API.post("/admin/reset-password", formData)
       .then((response) => {
-        console.log("data->", response);
+        console.log("response->", response);
         if (response.status === 200) {
-          console.log(response);
+          setSuccess("Password reset successful, please log in now");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 5000);
         }
       })
       .catch((error) => {
@@ -42,10 +54,19 @@ const ResetPassword = () => {
         } else if (error.response.status === 422) {
           setError(error.response.data.message);
         } else {
-          setError("Something happend, please try again");
+          setError(
+            error.response.data.message || "Something happend, please try again"
+          );
         }
+      })
+      .finally(() => {
+        setIsLoggingIn(false);
       });
   };
+  useEffect(() => {
+    setError(null);
+    setSuccess(null);
+  }, [password, confirmPassword]);
 
   return (
     <React.Fragment>
@@ -56,7 +77,12 @@ const ResetPassword = () => {
               <h1 className="text-3xl text-center text-gray-800 font-bold mb-6">
                 Reset Password ✨
               </h1>
-              <form className="" onSubmit={onFormSubmitHandler}>
+              <p className="text-center text-sm text-gray-600">
+                Hi,{" "}
+                <span className="font-bold hover:underline">{`${email}`}</span>{" "}
+                please enter your new password
+              </p>
+              <form className="mt-5" onSubmit={onFormSubmitHandler}>
                 <div className="pb-0">
                   <label
                     htmlFor="password"
@@ -66,6 +92,7 @@ const ResetPassword = () => {
                   </label>
                   <div className="relative">
                     <input
+                      autoComplete="new-password"
                       type={viewPassword ? "text" : "password"}
                       name="password"
                       id="password"
@@ -102,14 +129,15 @@ const ResetPassword = () => {
                   </label>
                   <div className="relative">
                     <input
+                      autoComplete="new-password"
                       type={viewPassword ? "text" : "password"}
-                      name="password"
-                      id="password"
+                      name="confimPassword"
+                      id="confirmPassword"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       placeholder="••••••••"
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <button type="button" onClick={onViewPasswordHandler}>
                       <svg
@@ -129,8 +157,13 @@ const ResetPassword = () => {
                   </div>
                 </div>
 
-                <p className="text-center text-red-500 text-sm mb-4">
-                  {error ? error : ""}
+                <p
+                  className={`text-center text-${
+                    success ? "green" : "red"
+                  }-500 text-sm mb-4`}
+                >
+                  {error && error}
+                  {success && success}
                 </p>
 
                 <button

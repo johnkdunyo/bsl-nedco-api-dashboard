@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getDashboard, getTxn } from "../redux/txnSlice";
+// import { getDashboard, getTxn } from "../redux/txnSlice";
 import { setCurrentUser } from "../redux/userSlice";
 import API from "../networks/api";
 
@@ -57,6 +57,10 @@ const SignIn = () => {
         setIsLoggingIn(false);
       });
   };
+
+  useEffect(() => {
+    setError(null);
+  }, [password, username]);
 
   return (
     <React.Fragment>
