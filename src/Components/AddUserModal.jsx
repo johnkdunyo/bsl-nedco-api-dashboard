@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import API from "../networks/api";
-import { logOutCurrentUser } from "../redux/userSlice";
 
 const userRoles = [
   {
@@ -19,7 +17,6 @@ const userRoles = [
 const AddUserModal = ({ modalStatus, title, currentUser }) => {
   console.log("current user", currentUser);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [selectedRole, setSelectedRole] = useState(userRoles[0].value);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
