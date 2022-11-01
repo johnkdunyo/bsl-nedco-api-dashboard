@@ -15,6 +15,7 @@ export const getDashboard = createAsyncThunk("getDashboard", async () => {
     console.log(error.response);
     if (error.response.status === 401) {
       localStorage.clear();
+      window.location.reload(true);
     }
   }
 });
@@ -30,6 +31,7 @@ export const getTxn = createAsyncThunk("getTxn", async () => {
     console.log(error.response);
     if (error.response.status === 401) {
       localStorage.clear();
+      window.location.reload(true);
     }
   }
 });
@@ -43,6 +45,7 @@ export const getTxnPerPage = createAsyncThunk("getTxnPerPage", async (url) => {
     console.log(error.response);
     if (error.response.status === 401) {
       localStorage.clear();
+      window.location.reload(true);
     }
   }
 });
@@ -71,6 +74,7 @@ export const getTxnByStan = createAsyncThunk("getTxnByStan", async (stan) => {
     console.log(error.response);
     if (error.response.status === 401) {
       localStorage.clear();
+      window.location.reload(true);
     }
   }
 });
@@ -107,6 +111,7 @@ export const getTxnBySearch = createAsyncThunk(
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
+        window.location.reload(true);
       }
     }
   }
@@ -131,6 +136,7 @@ export const downloadTxnBySearch = createAsyncThunk(
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
+        window.location.reload(true);
       }
     }
   }

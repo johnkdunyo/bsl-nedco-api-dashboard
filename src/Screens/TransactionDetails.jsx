@@ -25,6 +25,7 @@ const TransactionDetails = () => {
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
+        window.location.reload(true);
       }
     }
     setIsCheckingTxnStatus(false);
@@ -56,6 +57,7 @@ const TransactionDetails = () => {
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
+        window.location.reload(true);
       }
     }
     setIsFiringStatusUpdate(false);
