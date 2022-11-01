@@ -13,6 +13,9 @@ export const getDashboard = createAsyncThunk("getDashboard", async () => {
     return response.data.data;
   } catch (error) {
     console.log(error.response);
+    if (error.response.status === 401) {
+      localStorage.clear();
+    }
   }
 });
 
@@ -25,6 +28,9 @@ export const getTxn = createAsyncThunk("getTxn", async () => {
     return response.data;
   } catch (error) {
     console.log(error.response);
+    if (error.response.status === 401) {
+      localStorage.clear();
+    }
   }
 });
 
@@ -35,6 +41,9 @@ export const getTxnPerPage = createAsyncThunk("getTxnPerPage", async (url) => {
     return response.data;
   } catch (error) {
     console.log(error.response);
+    if (error.response.status === 401) {
+      localStorage.clear();
+    }
   }
 });
 
@@ -60,6 +69,9 @@ export const getTxnByStan = createAsyncThunk("getTxnByStan", async (stan) => {
     return response.data;
   } catch (error) {
     console.log(error.response);
+    if (error.response.status === 401) {
+      localStorage.clear();
+    }
   }
 });
 
@@ -93,6 +105,9 @@ export const getTxnBySearch = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error.response);
+      if (error.response.status === 401) {
+        localStorage.clear();
+      }
     }
   }
 );
@@ -114,6 +129,9 @@ export const downloadTxnBySearch = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error.response);
+      if (error.response.status === 401) {
+        localStorage.clear();
+      }
     }
   }
 );

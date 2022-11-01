@@ -23,6 +23,9 @@ const TransactionDetails = () => {
       setTxn(latestTxn.data.data);
     } catch (error) {
       console.log(error.response);
+      if (error.response.status === 401) {
+        localStorage.clear();
+      }
     }
     setIsCheckingTxnStatus(false);
   };
@@ -51,6 +54,9 @@ const TransactionDetails = () => {
       console.log(response);
     } catch (error) {
       console.log(error.response);
+      if (error.response.status === 401) {
+        localStorage.clear();
+      }
     }
     setIsFiringStatusUpdate(false);
   };
