@@ -47,7 +47,7 @@ const Transactions = () => {
 
   const handleSearchByStan = async (e) => {
     e.preventDefault();
-    const qURL = new URL(API.defaults.baseURL.concat("/transactions"));
+    const qURL = new URL(API.defaults.baseURL.concat("/v1.0/transactions"));
     qURL.searchParams.set("status", selectedStatus);
     qURL.searchParams.set("q", searchText);
     qURL.searchParams.set("from", dateFrom);
@@ -59,7 +59,7 @@ const Transactions = () => {
   };
 
   const handleExport = async () => {
-    const qURL = new URL(API.defaults.baseURL.concat("/transactions"));
+    const qURL = new URL(API.defaults.baseURL.concat("/v1.0/transactions"));
     qURL.searchParams.set("status", selectedStatus);
     qURL.searchParams.set("q", searchText);
     qURL.searchParams.set("from", dateFrom);
