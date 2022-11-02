@@ -41,6 +41,7 @@ const SignIn = () => {
         console.log("error->", error.response);
         if (error.response.status === 401) {
           setError(error.response.data.message);
+          window.location.reload(true);
         } else if (error.response.status === 422) {
           setError(error.response.data.message);
         } else if (error.response.status === 400) {

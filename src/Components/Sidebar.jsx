@@ -5,7 +5,7 @@ const Sidebar = () => {
   return (
     <React.Fragment>
       <aside
-        className="w-64 fixed z-40 left-0 top-0  transform h-screen    bg-gray-800 p-4 transition-all duration-200 ease-in-out"
+        className="w-64 fixed z-40 left-0 top-0  transform h-full    bg-gray-800 p-4 transition-all duration-200 ease-in-out"
         aria-label="Sidebar"
       >
         <div className="flex flex-col justify-between h-[100%]">

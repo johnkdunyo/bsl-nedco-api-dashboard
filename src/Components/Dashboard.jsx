@@ -53,7 +53,7 @@ const Card3 = ({ accountNumber, txn }) => {
 
 const Dashboard = () => {
   const data = useSelector((state) => state.txn.dashboard);
-  console.log(data);
+  // console.log(data);
 
   const getPieChartData = () => {
     // this function formats the data from the api for the pieChart
@@ -119,7 +119,7 @@ const Dashboard = () => {
       data?.weeklyTransactionData[day.toLowerCase()]?.transactionValue || 0
     ).toFixed(2)
   );
-  console.log(txnCount, txnValue);
+  // console.log(txnCount, txnValue);
 
   const lineChartData = {
     series1: [
