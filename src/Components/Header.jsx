@@ -56,52 +56,77 @@ const Header = () => {
             </button>
 
             <div
-              className={` ${
-                !openUser && `hidden`
-              } origin-top-right z-25 absolute top-full right-0 w-52  bg-white border border-gray-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 `}
+              role="menu"
+              aria-labelledby="tk-dropdown-layouts-user"
+              className={`${
+                !openUser && "hidden"
+              } absolute top-full right-0 origin-top-right mt-2 w-48 shadow-xl rounded z-1 `}
             >
-              <div className="pt-0.5 pb-2 px-5 mb-5 border-b border-gray-200">
-                {/* <div className="font-medium text-gray-800">Dashboard Name.</div> */}
-                {/* <div className="text-xs text-gray-500 italic ">Administrator</div> */}
-                <div className="flex justify-end">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none px-2 py-1 leading-5 text-sm rounded border-transparent text-gray-600 hover:text-gray-400 focus:ring focus:ring-gray-500 focus:ring-opacity-25 active:text-gray-600"
-                    onClick={() => setOpenUser((prev) => !prev)}
+              <div className="bg-white ring-1 ring-black ring-opacity-5 rounded divide-y divide-gray-100">
+                <div className="p-2 space-y-1">
+                  <a
+                    role="menuitem"
+                    href="/settings"
+                    className="flex items-center space-x-2 rounded py-2 px-3 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-700"
                   >
                     <svg
-                      className="hi-solid hi-x inline-block w-4 h-4 -mx-1"
+                      className="hi-solid hi-user-circle inline-block w-5 h-5 opacity-50"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
                         clipRule="evenodd"
                       />
                     </svg>
+                    <span>Profile</span>
+                  </a>
+                </div>
+                <div className="p-2 space-y-1">
+                  <a
+                    role="menuitem"
+                    href="/settings"
+                    className="flex items-center space-x-2 rounded py-2 px-3 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-700"
+                  >
+                    <svg
+                      className="hi-solid hi-cog inline-block w-5 h-5 opacity-50"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>Settings</span>
+                  </a>
+                </div>
+                <div className="p-2 space-y-1 pt-5">
+                  <button
+                    onClick={handleLogout}
+                    role="menuitem"
+                    className="w-full text-left flex items-center space-x-2 rounded py-2 px-3 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:bg-gray-100 focus:text-gray-700"
+                  >
+                    <svg
+                      className="hi-solid hi-lock-closed inline-block w-5 h-5 opacity-50"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>Sign out</span>
                   </button>
                 </div>
               </div>
-              <ul>
-                <li>
-                  <a
-                    className="font-medium text-sm hover:bg-gray-100 flex items-center py-1 px-3"
-                    href="/"
-                  >
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <button
-                    className="font-medium text-sm mb-3 w-full  hover:bg-gray-100 flex items-center py-1 px-3"
-                    onClick={handleLogout}
-                  >
-                    Sign Out
-                  </button>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

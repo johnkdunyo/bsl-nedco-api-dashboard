@@ -18,6 +18,7 @@ export const getAllAdmins = createAsyncThunk("getAllAdmins", async () => {
     console.log(error);
     if (error.response.status === 401) {
       localStorage.clear();
+      window.location.reload(true);
     }
   }
 });
@@ -28,7 +29,6 @@ const userSlice = createSlice({
 
   reducers: {
     setCurrentUser: (state, action) => {
-      console.log(action.payload);
       localStorage.setItem("user", JSON.stringify(action.payload));
       state.user = action.payload;
       state.isLoggedIn = true;

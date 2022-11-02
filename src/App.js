@@ -14,6 +14,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import ResetPassword from "./Screens/ResetPassword";
 import PasswordResetRequest from "./Screens/PasswordResetRequest";
 import Page404 from "./Screens/Page404";
+import UserSettings from "./Screens/UserSettings";
 
 const user = JSON.parse(localStorage.getItem("user"));
 if (user) {
@@ -64,6 +65,17 @@ function App() {
             element={
               <ProtectedRoute
                 Component={UserManagement}
+                Permission={["SUPER ADMIN", "ADMIN"]}
+              />
+            }
+          />
+
+          <Route
+            exact
+            path="/settings"
+            element={
+              <ProtectedRoute
+                Component={UserSettings}
                 Permission={["SUPER ADMIN", "ADMIN"]}
               />
             }

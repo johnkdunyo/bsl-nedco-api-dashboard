@@ -9,7 +9,7 @@ const initialState = {
 export const getDashboard = createAsyncThunk("getDashboard", async () => {
   try {
     const response = await API.get("/v1.0/dashboard");
-    console.log(response.data.data);
+    // console.log(response.data.data);
     return response.data.data;
   } catch (error) {
     console.log(error.response);
