@@ -36,6 +36,8 @@ const RenderUpdatePassword = ({ user }) => {
         } else if (error.response.status === 422) {
           console.log(error.response.data.message);
           setError(error.response.data.message);
+        } else {
+          setError("Something happend, please try again");
         }
         // setError(error.response.data[0]);
       })
@@ -199,6 +201,8 @@ const RenderProfile = ({ user }) => {
         if (error.response.status === 422) {
           console.log(error.response.data.message);
           setError(error.response.data.message);
+        } else {
+          setError("Something happend, please try again");
         }
       })
       .finally(() => {
