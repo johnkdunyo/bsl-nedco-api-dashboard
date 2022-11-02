@@ -41,7 +41,6 @@ const SignIn = () => {
         console.log("error->", error.response);
         if (error.response.status === 401) {
           setError(error.response.data.message);
-          window.location.reload(true);
         } else if (error.response.status === 422) {
           setError(error.response.data.message);
         } else if (error.response.status === 400) {
@@ -102,6 +101,7 @@ const SignIn = () => {
                     <input
                       type={viewPassword ? "text" : "password"}
                       name="password"
+                      autoComplete="current-password"
                       id="password"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       placeholder="••••••••"
