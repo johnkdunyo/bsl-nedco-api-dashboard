@@ -184,7 +184,7 @@ const RenderProfile = ({ user }) => {
     console.log("updating profile names");
     setUpdating(true);
 
-    API.put("/admin/me", { firstName, lastName })
+    API.put("/admin/me/edit", { firstName, lastName })
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
