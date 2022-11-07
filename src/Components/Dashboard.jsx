@@ -59,17 +59,30 @@ const Dashboard = () => {
     // this function formats the data from the api for the pieChart
     const labels = ["MTN", "Vodafone", "G-Money"];
     const series = [];
-    data?.weeklyTransactionsBySwitch.forEach((obj) => {
-      if (obj.rSwitch === "mtn") series[0] = obj.transactions;
-      else series[0] = 0;
-      if (obj.rSwitch === "vodafone") series[1] = obj.transactions;
-      else series[1] = 0;
-      if (obj.rSwitch === "gmoney") series[2] = obj.transactions;
-      else series[2] = 0;
-    });
+
+    series[0] =
+      data?.weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "mtn")
+        ?.transactions || 0;
+    series[1] =
+      data?.weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "vodafone")
+        ?.transactions || 0;
+    series[2] =
+      data?.weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "gmoney")
+        ?.transactions || 0;
+
+    // weeklyTransactionsBySwitch.forEach((obj) => {
+    //   console.log("each obj=>", obj);
+    //   if (obj.rSwitch === "mtn") series[0] = obj.transactions;
+    //   else series[0] = 0;
+    //   if (obj.rSwitch === "vodafone") series[1] = obj.transactions;
+    //   else series[1] = 0;
+    //   if (obj.rSwitch === "gmoney") series[2] = obj.transactions;
+    //   else series[2] = 0;
+    // });
     return { labels, series };
   };
 
+  console.log("data =>", getPieChartData().series);
   const pieChartData = {
     series: getPieChartData().series,
     options: {
@@ -79,7 +92,7 @@ const Dashboard = () => {
       },
       chart: {
         width: 380,
-        type: "pie",
+        type: "donut",
       },
       labels: getPieChartData().labels,
       responsive: [
@@ -95,8 +108,17 @@ const Dashboard = () => {
           },
         },
       ],
+      colors: ["#F3CA3D", "#F40000", "#0016F4"],
+      plotOptions: {
+        donut: {
+          size: "65%",
+          background: "transparent",
+          expandOnClick: true,
+        },
+      },
     },
   };
+
   const label = [
     "Monday",
     "Tuesday",
@@ -263,7 +285,7 @@ const Dashboard = () => {
               <ReactApexChart
                 options={pieChartData.options}
                 series={pieChartData.series}
-                type="pie"
+                type="donut"
               />
             </div>
           </div>
