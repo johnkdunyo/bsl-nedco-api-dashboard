@@ -2,17 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import ReactApexChart from "react-apexcharts";
 
-const weeklyTransactionsBySwitch = [
-  {
-    rSwitch: "mtn",
-    transactions: 51,
-  },
-  {
-    rSwitch: "vodafone",
-    transactions: 1,
-  },
-];
-
 const CardAmount = ({ desciption, value }) => {
   return (
     <div className="flex flex-col justify-between px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50">
@@ -72,13 +61,13 @@ const Dashboard = () => {
     const series = [];
 
     series[0] =
-      weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "mtn")
+      data?.weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "mtn")
         ?.transactions || 0;
     series[1] =
-      weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "vodafone")
+      data?.weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "vodafone")
         ?.transactions || 0;
     series[2] =
-      weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "gmoney")
+      data?.weeklyTransactionsBySwitch.find((obj) => obj.rSwitch === "gmoney")
         ?.transactions || 0;
 
     // weeklyTransactionsBySwitch.forEach((obj) => {
