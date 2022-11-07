@@ -27,6 +27,7 @@ const RenderUpdatePassword = ({ user }) => {
         console.log(response);
         if (response.status === 200) {
           setSuccess(response.data.data);
+          localStorage.clear();
         }
       })
       .catch((error) => {
