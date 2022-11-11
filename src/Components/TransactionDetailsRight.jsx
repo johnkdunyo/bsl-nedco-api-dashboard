@@ -114,7 +114,7 @@ const TransactionDetailsRight = ({
         </div>
         <hr />
 
-        <div className="flex justify-between mt-8 mb-4 border border-red-500">
+        <div className="flex justify-between mt-8 mb-4 ">
           <div className="w-[40%]">
             <label
               htmlFor="countries"
