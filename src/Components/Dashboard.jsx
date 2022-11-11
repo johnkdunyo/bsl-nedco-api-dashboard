@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import ReactApexChart from "react-apexcharts";
+import { getPercent } from "../utils/util-functions";
 
 const CardAmount = ({ desciption, value }) => {
   return (
@@ -10,6 +11,22 @@ const CardAmount = ({ desciption, value }) => {
       </dt>
       <dd className="text-2xl font-extrabold  text-blue-600 md:text-4xl px-3">
         GHS {value || 0}
+      </dd>
+    </div>
+  );
+};
+
+const CardCount2 = ({ desciption, value, percent }) => {
+  return (
+    <div className="flex flex-col justify-between px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50">
+      <dt className="order-last text-md font-medium text-gray-500">
+        {desciption || "No desciption"}
+      </dt>
+      <dd className="text-2xl font-extrabold  text-blue-600 md:text-4xl">
+        {value || 0}
+      </dd>
+      <dd className="text-md font-extrabold  text-gray-600 md:text-lg">
+        {percent || 0}%
       </dd>
     </div>
   );
@@ -248,19 +265,31 @@ const Dashboard = () => {
                 value={data?.highestTransactionAmount}
               />
 
-              <CardCount
+              <CardCount2
                 desciption="Pending Transactions"
                 value={data?.pendingTransactions}
+                percent={getPercent(
+                  data?.totalTransactions,
+                  data?.pendingTransactions
+                )}
               />
 
-              <CardCount
+              <CardCount2
                 desciption="Successful Transactions"
                 value={data?.successfulTransactions}
+                percent={getPercent(
+                  data?.totalTransactions,
+                  data?.successfulTransactions
+                )}
               />
 
-              <CardCount
+              <CardCount2
                 desciption="Failed Transactions"
                 value={data?.failedTransactions}
+                percent={getPercent(
+                  data?.totalTransactions,
+                  data?.failedTransactions
+                )}
               />
               <Card3
                 accountNumber={data?.highestTransactingAccount?.accountNumber}
