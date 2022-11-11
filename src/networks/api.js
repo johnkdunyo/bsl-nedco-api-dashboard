@@ -5,7 +5,7 @@ const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 });
 
-// instance.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+instance.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
