@@ -17,6 +17,7 @@ const CardAmount = ({ desciption, value }) => {
 };
 
 const CardCount2 = ({ desciption, value, percent }) => {
+  console.log(percent);
   return (
     <div className="flex flex-col justify-between px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50">
       <dt className="order-last text-md font-medium text-gray-500">

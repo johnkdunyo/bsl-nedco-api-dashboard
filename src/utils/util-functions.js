@@ -38,5 +38,11 @@ export const sortByMenuDate = (array) => {
 };
 
 export const getPercent = (total, value) => {
-  return (parseFloat(value) / parseFloat(total)) * 100;
+  const result = ((parseFloat(value) / parseFloat(total)) * 100).toFixed(2);
+  if (result === "NaN") {
+    return "0.00";
+  } else if (result === undefined) {
+    return "0.00";
+  }
+  return result;
 };
