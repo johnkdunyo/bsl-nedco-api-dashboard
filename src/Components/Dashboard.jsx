@@ -69,6 +69,22 @@ const Card3 = ({ accountNumber, txn }) => {
   );
 };
 
+const CardCount4 = ({ accountNumber, txn }) => {
+  return (
+    <div className="flex flex-col justify-between px-2 py-6 text-center bg-white border border-gray-700 rounded-lg hover:bg-gray-50">
+      <dt className="order-last text-md font-medium text-gray-500">
+        {"Highest Transacting Account"}
+      </dt>
+      <dd className="text-2xl font-extrabold  text-blue-600 md:text-4xl">
+        {txn || 0}{" "}
+      </dd>
+      <dd className="text-md font-extrabold  text-gray-600 md:text-lg">
+        {accountNumber || 0}{" "}
+      </dd>
+    </div>
+  );
+};
+
 const Dashboard = () => {
   const data = useSelector((state) => state.txn.dashboard);
   // console.log(data);
@@ -292,7 +308,7 @@ const Dashboard = () => {
                   data?.failedTransactions
                 )}
               />
-              <Card3
+              <CardCount4
                 accountNumber={data?.highestTransactingAccount?.accountNumber}
                 txn={data?.highestTransactingAccount?.transactions}
               />
