@@ -17,7 +17,6 @@ const TransactionDetails = () => {
   // this function fetches the current transaction
   const fetchLatestTxn = async () => {
     setIsCheckingTxnStatus(true);
-
     console.log("firing check status");
     try {
       const latestTxn = await API.get(
@@ -25,15 +24,18 @@ const TransactionDetails = () => {
       );
       // console.log(latestTxn.data.data);
       setTxn(latestTxn.data.data);
-      toast(` Status checked successfully  `);
+      toast.success(
+        `Status checked successfully, transaction status is ${latestTxn.data.data.status}  `
+      );
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
         window.location.reload(true);
       }
+      toast.error("Something happened, please try again");
     }
-    setIsCheckingTxnStatus(true);
+    setIsCheckingTxnStatus(false);
   };
 
   const updateTxnStatus = async (updatedStatus) => {
@@ -45,8 +47,10 @@ const TransactionDetails = () => {
       });
       // console.log(response)
       setTxn(response.data.data);
+      toast.success("Transaction updated successfully");
     } catch (error) {
       console.log(error.response);
+      toast.error("Something happened, please try again");
     }
     setIsUpdatingTxnStatus(false);
   };
@@ -58,15 +62,19 @@ const TransactionDetails = () => {
         `/v1.0/transactions/${txn.stan}/fireStatusUpdatedEvent`
       );
       // console.log(response);
+      toast.success("Status update event fired successfully");
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
         window.location.reload(true);
       }
+      toast.error("Something happened, please try again");
     }
     setIsFiringStatusUpdate(false);
   };
+
+  console.log("isCheckingTxnStatus =>", isCheckingTxnStatus);
 
   return (
     <React.Fragment>
@@ -104,7 +112,7 @@ const TransactionDetails = () => {
                 <TransactionDetailsRight
                   txn={txn}
                   fetchLatestTxn={fetchLatestTxn}
-                  ischeckingTxnStatus={isCheckingTxnStatus}
+                  isCheckingTxnStatus={isCheckingTxnStatus}
                   updateTxnStatus={updateTxnStatus}
                   isUpdatingTxnStatus={isUpdatingTxnStatus}
                   fireStatusUpdateEvent={fireStatusUpdateEvent}

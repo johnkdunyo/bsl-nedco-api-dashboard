@@ -157,7 +157,9 @@ const TransactionDetailsRight = ({
             }`}
             onClick={fireStatusUpdateEvent}
           >
-            Fire Status Update Event
+            {isFiringStatusUpdate
+              ? "Firing Status Update Event..."
+              : `Fire Status Update Event`}
           </button>
         </div>
         <hr />
