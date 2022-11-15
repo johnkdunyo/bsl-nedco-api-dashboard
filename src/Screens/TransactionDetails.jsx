@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import TransactionDetailsLeft from "../Components/TransactionDetailsLeft";
 import TransactionDetailsRight from "../Components/TransactionDetailsRight";
 import API from "../networks/api";
+import { toast } from "react-toastify";
 
 const TransactionDetails = () => {
   const state = useLocation();
@@ -18,15 +19,21 @@ const TransactionDetails = () => {
     setIsCheckingTxnStatus(true);
     console.log("firing check status");
     try {
-      const latestTxn = await API.get(`/v1.0/transactions/${txn.stan}`);
-      // console.log(latestTxn.data.data)
+      const latestTxn = await API.get(
+        `/v1.0/transactions/${txn.stan}/checkStatus`
+      );
+      // console.log(latestTxn.data.data);
       setTxn(latestTxn.data.data);
+      toast.success(
+        `Status checked successfully, transaction status is ${latestTxn.data.data.status}  `
+      );
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
         window.location.reload(true);
       }
+      toast.error("Something happened, please try again");
     }
     setIsCheckingTxnStatus(false);
   };
@@ -40,8 +47,10 @@ const TransactionDetails = () => {
       });
       // console.log(response)
       setTxn(response.data.data);
+      toast.success("Transaction updated successfully");
     } catch (error) {
       console.log(error.response);
+      toast.error("Something happened, please try again");
     }
     setIsUpdatingTxnStatus(false);
   };
@@ -52,13 +61,15 @@ const TransactionDetails = () => {
       const response = await API.post(
         `/v1.0/transactions/${txn.stan}/fireStatusUpdatedEvent`
       );
-      console.log(response);
+      // console.log(response);
+      toast.success("Status update event fired successfully");
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 401) {
         localStorage.clear();
         window.location.reload(true);
       }
+      toast.error("Something happened, please try again");
     }
     setIsFiringStatusUpdate(false);
   };
@@ -99,7 +110,7 @@ const TransactionDetails = () => {
                 <TransactionDetailsRight
                   txn={txn}
                   fetchLatestTxn={fetchLatestTxn}
-                  ischeckingTxnStatus={isCheckingTxnStatus}
+                  isCheckingTxnStatus={isCheckingTxnStatus}
                   updateTxnStatus={updateTxnStatus}
                   isUpdatingTxnStatus={isUpdatingTxnStatus}
                   fireStatusUpdateEvent={fireStatusUpdateEvent}

@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const defaultStatus = [
   {
@@ -156,7 +157,9 @@ const TransactionDetailsRight = ({
             }`}
             onClick={fireStatusUpdateEvent}
           >
-            Fire Status Update Event
+            {isFiringStatusUpdate
+              ? "Firing Status Update Event..."
+              : `Fire Status Update Event`}
           </button>
         </div>
         <hr />
