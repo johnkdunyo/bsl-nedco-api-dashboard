@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 import Header from "../Components/Header";
 import Sidebar from "../Components/Sidebar";
 import API from "../networks/api";
@@ -190,6 +191,7 @@ const RenderProfile = ({ user }) => {
         console.log(response);
         if (response.status === 200) {
           // get firstNAme and lastName and update
+          setTimeout(toast.success("Profile name updated successfully"), 60000);
           let user = JSON.parse(localStorage.getItem("user"));
           user.firstName = response.data.data.firstName;
           user.lastName = response.data.data.lastName;
@@ -329,7 +331,7 @@ const RenderProfile = ({ user }) => {
               !nameChanged && "opacity-50 cursor-not-allowed"
             } inline-flex justify-center items-center  border font-semibold focus:outline-none px-3 py-1.5 leading-5 text-sm rounded border-indigo-700 bg-indigo-700 text-white  focus:ring focus:ring-indigo-500 focus:ring-opacity-50 `}
           >
-            {updating ? "Saving Changes" : "Save Changes"}
+            {updating ? "Saving Changes..." : "Save Changes"}
           </button>
         </div>
       </form>

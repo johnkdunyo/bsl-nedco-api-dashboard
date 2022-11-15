@@ -63,7 +63,7 @@ const Header = () => {
               } absolute top-full right-0 origin-top-right mt-2 w-48 shadow-xl rounded z-1 `}
             >
               <div className="bg-white ring-1 ring-black ring-opacity-5 rounded divide-y divide-gray-100">
-                <div className="p-2 space-y-1">
+                {/* <div className="p-2 space-y-1">
                   <a
                     role="menuitem"
                     href="/settings"
@@ -83,7 +83,7 @@ const Header = () => {
                     </svg>
                     <span>Profile</span>
                   </a>
-                </div>
+                </div> */}
                 <div className="p-2 space-y-1">
                   <a
                     role="menuitem"

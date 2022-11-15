@@ -6,6 +6,7 @@ import TransactionsPageTable from "../Components/TransactionsPageTable";
 import { useDispatch } from "react-redux";
 import { getTxn, getTxnBySearch } from "../redux/txnSlice";
 import API from "../networks/api";
+import { toast } from "react-toastify";
 
 const status = [
   {
@@ -55,6 +56,7 @@ const Transactions = () => {
     setSearchURL(qURL.href);
     const response = await dispatch(getTxnBySearch(qURL.href)).unwrap();
     // console.log(response);
+    toast.success("Search successful");
     setSearchResponse(response);
   };
 
@@ -72,6 +74,7 @@ const Transactions = () => {
     const url = res?.data?.data?.downloadUrl;
     if (url) {
       window.location.href = url;
+      toast.success("Export successful");
     }
   };
 

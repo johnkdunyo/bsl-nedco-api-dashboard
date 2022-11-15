@@ -74,8 +74,6 @@ const TransactionDetails = () => {
     setIsFiringStatusUpdate(false);
   };
 
-  console.log("isCheckingTxnStatus =>", isCheckingTxnStatus);
-
   return (
     <React.Fragment>
       <div className="flex">
