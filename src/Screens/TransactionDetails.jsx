@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import TransactionDetailsLeft from "../Components/TransactionDetailsLeft";
 import TransactionDetailsRight from "../Components/TransactionDetailsRight";
 import API from "../networks/api";
+import { toast } from "react-toastify";
 
 const TransactionDetails = () => {
   const state = useLocation();
@@ -16,11 +17,15 @@ const TransactionDetails = () => {
   // this function fetches the current transaction
   const fetchLatestTxn = async () => {
     setIsCheckingTxnStatus(true);
+
     console.log("firing check status");
     try {
-      const latestTxn = await API.get(`/v1.0/transactions/${txn.stan}`);
-      // console.log(latestTxn.data.data)
+      const latestTxn = await API.get(
+        `/v1.0/transactions/${txn.stan}/checkStatus`
+      );
+      // console.log(latestTxn.data.data);
       setTxn(latestTxn.data.data);
+      toast(` Status checked successfully  `);
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 401) {
@@ -28,7 +33,7 @@ const TransactionDetails = () => {
         window.location.reload(true);
       }
     }
-    setIsCheckingTxnStatus(false);
+    setIsCheckingTxnStatus(true);
   };
 
   const updateTxnStatus = async (updatedStatus) => {
@@ -52,7 +57,7 @@ const TransactionDetails = () => {
       const response = await API.post(
         `/v1.0/transactions/${txn.stan}/fireStatusUpdatedEvent`
       );
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log(error.response);
       if (error.response.status === 401) {
