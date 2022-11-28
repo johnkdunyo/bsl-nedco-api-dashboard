@@ -3,23 +3,46 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logOutCurrentUser } from "../redux/userSlice";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openUser, setOpenUser] = useState(false);
+  const [displayTotal, setDisplayTotal] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const totalTxn = useSelector(
+    (state) => state?.txn?.dashboard?.successfulTransactionValue
+  );
+  console.log("totalTransactions", totalTxn);
+  console.log(window.location.pathname === "/");
 
   const handleLogout = async () => {
     await dispatch(logOutCurrentUser()).unwrap;
     navigate("/signin");
   };
 
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      setDisplayTotal(true);
+    }
+  }, []);
+
   return (
     <React.Fragment>
-      <header className="sticky  top-0 bg-white border-b-2 border-gray-200 z-30  h-14 ">
-        <div className="px-12 py-3 flex justify-end space-x-3 ">
+      <header className="sticky  top-0 bg-white border-b-2 border-gray-200 z-30  h-14 flex justify-between items-center">
+        <div className="pl-6 py-3 flex">
+          {displayTotal && (
+            <>
+              <p className="">Total Transaction Value:</p>
+              <span className="ml-2 font-medium">GHC {totalTxn}</span>
+            </>
+          )}
+        </div>
+        <div className="px-12 py-3 flex justify-end space-x-3  ">
           <button className="text-lg border border-transparent hover:border-gray-100 px-3 rounded-md hover:bg-gray-100">
             Notifications
           </button>
