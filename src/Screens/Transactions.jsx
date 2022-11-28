@@ -34,6 +34,8 @@ const Transactions = () => {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [searchURL, setSearchURL] = useState("");
+  const [searchStatus, setSearchStatus] = useState(false);
+  const [exportStatus, setExportStatus] = useState(false);
 
   const [selectedStatus, setSelectedStatus] = useState("");
 
@@ -48,6 +50,7 @@ const Transactions = () => {
 
   const handleSearchByStan = async (e) => {
     e.preventDefault();
+    setSearchStatus(true);
     const qURL = new URL(API.defaults.baseURL.concat("/v1.0/transactions"));
     qURL.searchParams.set("status", selectedStatus);
     qURL.searchParams.set("q", searchText);
@@ -58,9 +61,11 @@ const Transactions = () => {
     // console.log(response);
     toast.success("Search successful");
     setSearchResponse(response);
+    setSearchStatus(false);
   };
 
   const handleExport = async () => {
+    setExportStatus(true);
     const qURL = new URL(API.defaults.baseURL.concat("/v1.0/transactions"));
     qURL.searchParams.set("status", selectedStatus);
     qURL.searchParams.set("q", searchText);
@@ -76,6 +81,7 @@ const Transactions = () => {
       window.location.href = url;
       toast.success("Export successful");
     }
+    setExportStatus(false);
   };
 
   return (
@@ -167,14 +173,18 @@ const Transactions = () => {
                       className="flex items-center px-4 py-1.5 rounded-md bg-green-800 text-white hover:opacity-80"
                       onClick={handleSearchByStan}
                     >
-                      <h1 className="">Search</h1>
+                      <h1 className="">
+                        {searchStatus ? "Searching..." : "Search"}
+                      </h1>
                     </button>
                     {/* export */}
                     <button
                       className="flex items-center px-3 py-1.5 rounded-md bg-gray-200 border border-gray-900 text-black font-bold hover:opacity-80"
                       onClick={handleExport}
                     >
-                      <h1 className="mr-2">Export</h1>
+                      <h1 className="mr-2">
+                        {exportStatus ? "Exporting..." : "Export"}
+                      </h1>
                       <svg
                         aria-hidden="true"
                         className="flex-shrink-0 w-6 h-6  transition duration-75  group-hover:text-gray-900 "
